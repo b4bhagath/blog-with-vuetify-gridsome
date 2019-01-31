@@ -21,22 +21,22 @@
             <v-container grid-list-xl px-5>
               <v-layout row wrap px-5>
                 <v-flex v-for="(post, index) in posts" :key="index" @click="onClick(post)" xs12 md6>
-                  <v-card xs12 md6 hover>
+                  <v-card xs12 md6 hover flat>
                     <v-responsive min-height="350" transition :contain=true>
-                      <v-img class="white--text"> fas fa-ellipsis-v </v-img>
+                      <v-img class="white--text" :src="getImageUrl()"></v-img>
                     </v-responsive>
                     <v-card-title>
                       <v-flex>
                         <div class="avatar-section py-3">
                           <v-avatar slot="activator" size="36px" ma-2>
-                            <img alt="Avatar">
+                            <img :src=returnAvatar() alt="Avatar">
                           </v-avatar>
                           <div>
                             <v-flex py-0 class="caption">John Leider</v-flex>
                             <v-flex py-0 d-inline-flex class="caption">
-                              <span class="pdr-10">4 days ago</span>
+                              <span class="pdr-10">{{ dateOfPost[index] }}</span>
                               <li></li>
-                              <span>1 min</span>
+                              <span>{{post.node.timeToRead}} min</span>
                             </v-flex>
                           </div>
                           <v-spacer></v-spacer>
@@ -44,8 +44,8 @@
                         </div>
                         <div class="title-section">
                           <div>
-                            <div class="post-title mb-0 py-3">{{post.node.title}}</div>
-                            <div class="subheading"></div>
+                            <div class="card-title mb-0 py-3">{{post.node.title}}</div>
+                            <div class="subheading">{{ postTitle[index] }}...</div>
                           </div>
                         </div>
                       </v-flex>
@@ -81,7 +81,13 @@ query {
         title
         slug
         path
-        date
+        date(format: "YYYY-MM-DD")
+        headings {
+          depth
+          value
+          anchor
+        }
+        timeToRead(speed: 320)
       }
     }
   }
@@ -90,10 +96,15 @@ query {
 
 
 <script>
+var faker = require('faker');
+var moment = require('moment');
+
 export default {
   data () {
     return {
-      imgUrl: require('@/favicon.png')
+      imgUrl: require('@/favicon.png'),
+      dateOfPost: [],
+      postTitle: []
     }
   },
   computed: {
@@ -102,18 +113,83 @@ export default {
     },
     totalCount () {
       return this.$page.allPost.totalCount
+    },
+    postAddedOn() {
+      this.$page.allPost.edges.map(node => {
+        console.log(node.data)
+      })
+      // moment(this.$page.allPost.edges.node.date).toNow()
     }
+  },
+  mounted() {
+    this.dateOfPost = this.$page.allPost.edges.map(x => {
+        // console.log(x.node.date)
+        this.postTitle.push(x.node.headings[0].value)
+        return moment(x.node.date).toNow(true) + ' ago '
+    })
+    console.log(this.dateOfPost, this.postTitle)
   },
   methods: {
     onClick (post) {
       this.$router.push({ path: post.node.path })
+    },
+    returnAvatar() {
+      return faker.image.avatar()
+    },
+    getImageUrl() {
+      return faker.image.image()
+    },
+    getCardParah() {
+      return faker.lorem.paragraph()
     }
   }
 }
 </script>
 
 <style>
-.home-links a {
-  margin-right: 1rem;
-}
+  .card-title {
+    font-size: 20px;
+    font-weight: 500;
+  }
+  .card-footer {
+    display: flex;
+  }
+
+  .card-footer .caption {
+    font-weight: 300;
+  }
+  .pd-5 {
+    padding: 5px;
+  }
+
+  .pdr-5 {
+    padding-right: 5px;
+  }
+  .pdr-10 {
+    padding-right: 10px;
+  }
+
+  .avatar-section {
+    display: flex;
+    width: 100%
+  }
+
+  .title-section {
+    width: 100%;
+  }
+
+  /* .title-section .post-title{
+    font-weight: 400;
+  } */
+
+  .nav-links > .navIsActive {
+    color: #333!important;
+  }
+
+  /* .title-section .subheading {
+    font-weight: 300;
+  } */
+
+</style>
+
 </style>

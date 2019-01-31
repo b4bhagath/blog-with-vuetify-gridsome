@@ -79,16 +79,17 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css?family=Chivo:300,300i,400,400i,700');
 
 @font-face {
     font-family: monlyBold;
     src: url("../../static/fonts/Anders.ttf");
   }
 
-@font-face {
+/* @font-face {
   font-family: Aganè;
-  src: url("../../static/fonts/Aganè 45 (light).ttf");
-}
+  src: url("../../static/fonts/Chivo-Light.ttf");
+} */
 
 @font-face {
   font-family: Brokes;
@@ -97,7 +98,7 @@ export default {
 
 * {
   box-sizing: border-box;
-  font-family: Aganè, serif;
+  font-family: 'Chivo', sans-serif;
 }
 
 #logo {
