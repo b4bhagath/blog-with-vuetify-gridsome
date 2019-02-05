@@ -79,7 +79,8 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css?family=Chivo:300,300i,400,400i,700');
+/* @import url('https://fonts.googleapis.com/css?family=Chivo:300,300i,400,400i,700'); */
+@import url("https://fonts.googleapis.com/css?family=Roboto:100,400,700");
 
 @font-face {
     font-family: monlyBold;
@@ -98,7 +99,7 @@ export default {
 
 * {
   box-sizing: border-box;
-  font-family: 'Chivo', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 #logo {

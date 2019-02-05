@@ -1,18 +1,5 @@
 <template>
   <layout>
-    <!-- <v-img alt="Example image" :src="imgUrl" width="135"></v-img>
-    <h1>Hello, world!</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-    <div class="title mb-3">Total posts: {{ totalCount }}</div>
-    <v-list two-line="two-line">
-      <v-list-tile v-for="(post, index) in posts" :key="index" @click="onClick(post)">
-        <v-list-tile-content>
-          <v-list-tile-title>{{ post.node.title }}</v-list-tile-title>
-          <v-list-tile-sub-title>{{ post.node.date }}</v-list-tile-sub-title>
-        </v-list-tile-content>
-      </v-list-tile>
-    </v-list> -->
-
     <v-content>
 
       <section>
@@ -23,7 +10,11 @@
                 <v-flex v-for="(post, index) in posts" :key="index" @click="onClick(post)" xs12 md6>
                   <v-card xs12 md6 hover flat>
                     <v-responsive min-height="350" transition :contain=true>
-                      <v-img class="white--text" :src="getImageUrl()"></v-img>
+                      <v-img :lazy-src="`https://picsum.photos/500/300?image=${index * 5 + 10}`" class="white--text" :src="`https://picsum.photos/500/300?image=${index * 5 + 10}`">
+                        <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
+                          <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
+                        </v-layout>
+                      </v-img>
                     </v-responsive>
                     <v-card-title>
                       <v-flex>
