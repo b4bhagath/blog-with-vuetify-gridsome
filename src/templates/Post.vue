@@ -2,20 +2,16 @@
     <layout>
 
       <section>
-        <v-layout column class="my-5">
-          <v-flex xs12 px-5 class="card-post">
-            <v-card :max-width="720" xs12 flat>
-              <v-layout column wrap>
-                <v-flex xs12>
-                  <v-card-title primary-title>
-                    <h1 v-html="$page.post.title"></h1>
-                    <v-flex v-html="$page.post.content"></v-flex>
-                  </v-card-title>
-                </v-flex>
-              </v-layout>
-            </v-card>
-          </v-flex>
-        </v-layout>
+        <v-container grid-list-xs fill-height>
+          <v-layout column class="ma-5">
+            <v-flex class="card-post ma-5">
+              <v-flex class="text-xs-center">
+                <h1 v-html="$page.post.title"></h1>
+              </v-flex>
+              <v-flex v-html="$page.post.content"></v-flex>
+            </v-flex>
+          </v-layout>
+        </v-container>
       </section>
     </layout>
 </template>
@@ -48,26 +44,30 @@ export default {
 
   .card-post h1 {
     font-weight: normal;
-    font-size: 41px;
+    font-size: 48px;
     line-height: 1.25;
+    font-family: 'Poppins', sans-serif!important;
   }
 
   .card-post h2 {
-    font-weight: 21px;
-    margin: 24px 0;
-    font-weight: normal;
+    font-family: 'Poppins', sans-serif!important;
+    text-align: center;
+    margin: 24px;
+    font-size: 18px;
+    color: #7d8791!important;
+    line-height: 25px;
   }
   .card-post h3 {
-    font-weight: normal;
-    font-size: 34px;
-    line-height: 1.25;
+    font-family: 'Poppins', sans-serif!important;
   }
 
   .card-post p {
-    font-weight: 100;
-    font-size: 21px;
+    /* font-weight: 100; */
+    font-size: 16px;
     letter-spacing: 0;
-    /* margin: 0 16px; */
+    display: grid;
+    font-family: 'Poppins', sans-serif!important;
+    color: #3b3d3f;
   }
 
   .card-post blockquote {
@@ -82,10 +82,12 @@ export default {
 
   .card-post blockquote p {
     margin: 0;
+    font-family: 'Poppins', sans-serif!important;
   }
 
   .card-post img {
     width: 100%;
-    max-height: 400;
+    max-width: 400px;
+    margin: 20px auto;
   }
 </style>

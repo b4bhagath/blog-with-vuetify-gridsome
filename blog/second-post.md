@@ -1,6 +1,6 @@
 ---
 slug: second-post
-title: This is my second post!
+title: How to allow users to add images in WordPress comments?
 ---
 
 ## Create a blog post subtitle that summarizes your post in a few short, punchy sentences and entices your audience to continue reading.

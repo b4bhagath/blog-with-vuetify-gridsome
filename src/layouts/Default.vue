@@ -80,7 +80,7 @@ export default {
 
 <style>
 /* @import url('https://fonts.googleapis.com/css?family=Chivo:300,300i,400,400i,700'); */
-@import url("https://fonts.googleapis.com/css?family=Roboto:100,400,700");
+@import url('https://fonts.googleapis.com/css?family=Nunito+Sans|Poppins');
 
 @font-face {
     font-family: monlyBold;
@@ -99,7 +99,7 @@ export default {
 
 * {
   box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Nunito Sans", Helvetica, Arial, sans-serif;
 }
 
 #logo {
