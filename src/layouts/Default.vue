@@ -79,18 +79,12 @@ export default {
 </script>
 
 <style>
-/* @import url('https://fonts.googleapis.com/css?family=Chivo:300,300i,400,400i,700'); */
 @import url('https://fonts.googleapis.com/css?family=Nunito+Sans|Poppins');
 
 @font-face {
-    font-family: monlyBold;
-    src: url("../../static/fonts/Anders.ttf");
-  }
-
-/* @font-face {
-  font-family: Aganè;
-  src: url("../../static/fonts/Chivo-Light.ttf");
-} */
+  font-family: monlyBold;
+  src: url("../../static/fonts/Anders.ttf");
+}
 
 @font-face {
   font-family: Brokes;
@@ -99,6 +93,9 @@ export default {
 
 * {
   box-sizing: border-box;
+}
+
+body{
   font-family: "Nunito Sans", Helvetica, Arial, sans-serif;
 }
 
