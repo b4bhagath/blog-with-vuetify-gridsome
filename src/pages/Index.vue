@@ -8,9 +8,9 @@
             <v-container grid-list-xl px-5>
               <v-layout row wrap px-5>
                 <v-flex v-for="(post, index) in posts" :key="index" @click="onClick(post)" xs12 md6>
-                  <v-card xs12 md6 hover flat>
+                  <v-card class="post-card" xs12 md6 hover flat>
                     <v-responsive min-height="350" transition :contain=true>
-                      <v-img :lazy-src="`https://picsum.photos/500/300?image=${index * 5 + 10}`" class="white--text" :src="`https://picsum.photos/500/300?image=${index * 5 + 10}`">
+                      <v-img :lazy-src="`https://picsum.photos/500/300?image=${index * 5 + 10}`" class="card-image white--text" :src="`https://picsum.photos/500/300?image=${index * 5 + 10}`">
                         <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
                           <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
                         </v-layout>
@@ -100,6 +100,7 @@ export default {
   },
   computed: {
     posts () {
+      // console.log('post function', this)
       return this.$page.allPost.edges
     },
     totalCount () {
@@ -107,7 +108,7 @@ export default {
     },
     postAddedOn() {
       this.$page.allPost.edges.map(node => {
-        console.log(node.data)
+        // console.log(node.data)
       })
       // moment(this.$page.allPost.edges.node.date).toNow()
     }
@@ -118,7 +119,7 @@ export default {
         this.postTitle.push(x.node.headings[0].value)
         return moment(x.node.date).toNow(true) + ' ago '
     })
-    console.log(this.dateOfPost, this.postTitle)
+    // console.log(this.dateOfPost, this.postTitle)
   },
   methods: {
     onClick (post) {
@@ -140,8 +141,19 @@ export default {
 <style>
   .card-title {
     font-size: 20px;
-    font-weight: 500;
+    /* font-weight: 500; */
   }
+
+  .post-card:hover .card-title {
+    transition: color 0.3s ease;
+    color: #e04f62;
+  }
+
+  .post-card:hover .card-image {
+    transition: opacity 0.3s ease;
+    opacity: 0.9;
+  }
+
   .card-footer {
     display: flex;
   }
@@ -174,7 +186,7 @@ export default {
   } */
 
   .nav-links > .navIsActive {
-    color: #333!important;
+    color: #e04f62!important;
   }
 
   /* .title-section .subheading {
