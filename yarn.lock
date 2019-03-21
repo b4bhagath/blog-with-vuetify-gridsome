@@ -616,11 +616,6 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@fortawesome/fontawesome-free@^5.7.0":
-  version "5.7.0"
-  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.7.0.tgz#d28fd6248837ae5142c567f7ff50605824207e34"
-  integrity sha512-jLikKhTPgYTY/IFIBwkPSh2JME5xK0b9DqXmTdlG/SUbMW0siHIJ+GLPTebL8qHO5R6xOth0uPHBL5/oZ7BeEQ==
-
 "@gridsome/cli@^0.0.7":
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/@gridsome/cli/-/cli-0.0.7.tgz#7e4d3a3f6a93c970ecb8755ae610cc48f636c621"
@@ -679,6 +674,11 @@
     hirestime "^3.2.1"
     log-update "^2.3.0"
     p-map "^1.2.0"
+
+"@mdi/font@^3.5.95":
+  version "3.5.95"
+  resolved "https://registry.yarnpkg.com/@mdi/font/-/font-3.5.95.tgz#422d1982566b4a0577b457cd0acc2168ee8343c3"
+  integrity sha512-WHSJ0TJ70qkn+EPsW9w22pQU+kjEnRZlfN4N7xsFFmKa6VhpdQcwTWqj9PDH3oq6Be2p0IW/VDURJvPWDnBAUw==
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"

@@ -2,9 +2,11 @@ import Vuetify from 'vuetify'
 import DefaultLayout from '~/layouts/Default.vue'
 
 import 'vuetify/dist/vuetify.min.css'
-// import '@fortawesome/fontawesome-free/css/all.css'
-
+import '@mdi/font/css/materialdesignicons.css'
 export default function (Vue) {
-  Vue.use(Vuetify)
+  Vue.use(Vuetify, {
+    iconfont: 'md'
+  })
   Vue.component('Layout', DefaultLayout)
+
 }

@@ -1,15 +1,27 @@
 <template>
   <v-app>
     <section v-if="pageLoad">
-      <v-flex class="left-flex" xs6>
+      <v-flex class="left-flex" xs12 md6>
         <v-img :src="`http://uploads.webflow.com/56c57a495f4a7cf431e728a0/56c57a495f4a7cf431e728be_Photo-11.jpg`" :lazy-src="`http://uploads.webflow.com/56c57a495f4a7cf431e728a0/56c57a495f4a7cf431e728be_Photo-11.jpg`" aspect-ratio="1" class="grey lighten-2 fill-height" height="100%">
-        <div class="left-div-overlay"></div></v-img>
+          <div class="left-div-overlay">
+            <v-layout align-center justify-center row fill-height>
+              <v-flex d-block ma-auto px-5 xs12>
+                
+                <v-avatar :tile="false" :size="100" color="grey lighten-4 mb-3">
+                  <img class="img-border" src="http://uploads.webflow.com/56c57a495f4a7cf431e728a0/56d6beafbe84aafb6ca028c1_Akira.jpg" alt="avatar">
+                </v-avatar>
+                <h1 class="display-3">Hello.</h1>
+                <h2 class="headline px-4">My name is Akira Lee and I write about my life, travels and music.</h2>
+              </v-flex>
+            </v-layout>
+          </div>
+        </v-img>
       </v-flex>
-      <v-flex class="right-flex" fill-height offset-xs6 xs6>
+      <v-flex class="right-flex" fill-height offset-xs6 xs12 md6>
         <slot></slot>
       </v-flex>
 
-      <v-footer height="auto">
+      <!-- <v-footer height="auto">
         <v-card class="flex" flat tile>
           <v-card-actions class="grey darken-3 justify-center">
             <v-layout row wrap align-center>
@@ -31,7 +43,7 @@
             </v-btn>
           </v-card-actions>
         </v-card>
-      </v-footer>
+      </v-footer> -->
     </section>
 
     <section v-else>
@@ -114,6 +126,11 @@ html {
     height: 100%;
     float: left;
     overflow: hidden;
+}
+
+.img-border {
+  border: 7px solid #3f3f3f;
+  border-radius: 100%;
 }
 
 .left-div-overlay {

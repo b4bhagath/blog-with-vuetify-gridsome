@@ -67,6 +67,10 @@
 
                 </v-flex>
               </v-layout>
+              <div class="gs-pagination">
+                <Pager :info="$page.posts.pageInfo" :showNavigation="false"/>
+              </div>
+              <v-pagination v-model="pagination" :next="pageinationClicked()" prev-icon="mdi-menu-left" next-icon="mdi-menu-right" color="rgb(224, 79, 97)" :length="totalPages" circle></v-pagination>
             </v-container>
           </v-flex>
         </v-layout>
@@ -77,9 +81,15 @@
 </template>
 
 <page-query>
-query {
-  allPost {
+query Posts ($page: Int) {
+  posts: allPost (perPage: 2, page: $page) @paginate {
     totalCount
+    pageInfo {
+      totalPages
+      currentPage
+      isFirst
+      isLast
+    }
     edges {
       node {
         id
@@ -103,6 +113,8 @@ query {
 <script>
 var faker = require('faker');
 var moment = require('moment');
+import { Pager } from "gridsome";
+import { isNumber } from 'util';
 
 export default {
   data () {
@@ -110,25 +122,32 @@ export default {
       imgUrl: require('@/favicon.png'),
       image: ['https://colorlib.com/preview/theme/libro/images/image_1.jpg', 'https://colorlib.com/preview/theme/libro/images/image_5.jpg'],
       dateOfPost: [],
-      postSummary: []
+      postSummary: [],
+      pagination: 1
     }
+  },
+  components: {
+    Pager
   },
   computed: {
     posts () {
-      return this.$page.allPost.edges
+      return this.$page.posts.edges
     },
     totalCount () {
-      return this.$page.allPost.totalCount
+      return this.$page.posts.totalCount
     },
     postAddedOn() {
-      this.$page.allPost.edges.map(node => {
+      this.$page.posts.edges.map(node => {
         // console.log(node.data)
       })
-      // moment(this.$page.allPost.edges.node.date).toNow()
+      // moment(this.$page.posts.edges.node.date).toNow()
+    },
+    totalPages() {
+      return this.$page.posts.pageInfo.totalPages
     }
   },
   mounted() {
-    this.dateOfPost = this.$page.allPost.edges.map(x => {
+    this.dateOfPost = this.$page.posts.edges.map(x => {
         // console.log(x.node.date)
         this.postSummary.push(x.node.headings[0].value)
         return moment(x.node.date).toNow(true) + ' ago '
@@ -136,6 +155,14 @@ export default {
     // console.log(this.dateOfPost, this.postSummary)
   },
   methods: {
+    pageinationClicked() {
+      console.log('pageCicked', this.pagination, typeof this.pagination)
+      if(this.pagination) {
+
+        if(this.pagination === 1) this.$router.push({ path: "/"})
+        else this.$router.push({ path: "/" + this.pagination})
+      }
+    },
     onClick (post) {
       this.$router.push({ path: post.node.path })
     },
@@ -242,6 +269,10 @@ export default {
     width: 100%;
   }
 
+  .gs-pagination > nav{
+    display: none;
+  }
+
   /* .title-section .post-title{
     font-weight: 400;
   } */
@@ -254,7 +285,5 @@ export default {
   /* .title-section .subheading {
     font-weight: 300;
   } */
-
-</style>
 
 </style>
