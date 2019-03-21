@@ -2,15 +2,16 @@
     <layout>
 
       <section>
-        <v-container grid-list-xs fill-height>
-          <v-layout column class="ma-5">
-            <v-flex class="card-post ma-5">
+        <v-container pa-0 grid-list-xs fill-height>
+          <v-layout column>
+            <v-flex style="padding: 50px;"></v-flex>
+            <v-flex class="card-post mx-5">
               <v-flex class="text-xs-center">
                 <h1 v-html="$page.post.title"></h1>
               </v-flex>
               <v-flex v-html="$page.post.content"></v-flex>
             </v-flex>
-            <v-flex>
+            <!-- <v-flex>
               <h3 class="h3-heading">You may also like</h3>
             </v-flex>
             <v-flex class="d-flex">
@@ -27,7 +28,7 @@
                   </article>
                 </a>
               </v-flex> 
-            </v-flex>
+            </v-flex> -->
           </v-layout>
         </v-container>
       </section>
@@ -77,31 +78,35 @@ export default {
 
   .card-post h1 {
     font-weight: normal;
-    font-size: 48px;
+    font-size: 32px;
     line-height: 1.25;
-    font-family: 'Poppins', sans-serif!important;
+    font-weight: bolder;
+    font-family: 'Arvo', serif!important;
+    text-align: center;
   }
 
   .card-post h2 {
-    font-family: 'Poppins', sans-serif!important;
+    font-family: 'Work Sans', sans-serif!important;    
     text-align: center;
     margin: 24px;
-    font-size: 18px;
-    color: #7d8791!important;
-    line-height: 25px;
-  }
-  .card-post h3 {
-    font-family: 'Poppins', sans-serif!important;
-    font-size: 32px;
+    font-size: 17px;
+    color: #b3b3b3!important;
+    line-height: 28px;
     font-weight: normal;
     text-align: center;
+  }
+  .card-post h3 {
+    font-family: 'Work Sans', sans-serif!important; 
+    font-size: 32px;
+    font-weight: normal;
     margin: 50px 0;
     padding-top: 40px;
     color: #424143!important;
     /* border-bottom: 1px solid #7d8791; */
+    text-align: center;
   }
   .h3-heading {
-    font-family: 'Poppins', sans-serif!important;
+    font-family: 'Work Sans', sans-serif!important; 
     font-size: 32px;
     font-weight: normal;
     margin: 50px 0;
@@ -110,7 +115,7 @@ export default {
   }
 
   .card-post h3::after {
-    background: #ced4da none repeat scroll 0 0;
+    background: rgb(224, 79, 97) none repeat scroll 0 0;
     bottom: -15px;
     content: "";
     display: block;
@@ -123,32 +128,30 @@ export default {
 
   .card-post p {
     /* font-weight: 100; */
+    text-align: start;
     font-size: 16px;
     letter-spacing: 0;
     display: grid;
-    font-family: 'Poppins', sans-serif!important;
+    font-family: 'Work Sans', sans-serif!important; 
     color: #3b3d3f;
   }
 
   .card-post blockquote {
-    /* margin-right: calc((100% - 740px) / 2 + 60px); */
-    /* margin-left: calc((100% - 740px) / 2); */
-    padding: 10px 20px 10px 18px;
-    border-left: 2px solid rgb(188, 228, 196);
-    font-size: 24px;
+    padding: 5px 20px 5px 10px;
+    border-left: 2px solid rgb(224, 79, 97);
     line-height: 32px;
-    margin: 10px;
+    margin: 0 10px 20px 10px;
   }
 
   .card-post blockquote p {
     margin: 0;
-    font-family: 'Poppins', sans-serif!important;
+    font-family: 'Work Sans', sans-serif!important; 
   }
 
   .card-post img {
     width: 100%;
     max-width: 400px;
-    margin: 20px auto;
+    margin: auto;
   }
 
   .blog-card {

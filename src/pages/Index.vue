@@ -6,7 +6,7 @@
         <v-layout column class="my-5">
           <v-flex xs12>
             <v-container grid-list-xl>
-              <v-layout row wrap>
+              <v-layout row wrap mb-5>
                 <v-flex v-for="(post, index) in posts" :key="index" @click="onClick(post)" v-on:get-all-posts="posts" xs6>
                   <v-card class="post-card" xs12 md6 flat>
                     <v-responsive transition>
@@ -16,7 +16,8 @@
                         </v-layout>
                       </v-img>
                     </v-responsive>
-                    <div class="card-title text-xs-left mb-0 py-3">{{post.node.title}}</div>
+                    <div class="meta body-2 py-3">{{ post.node.date | moment("MMMM Do, YYYY")}}</div>
+                    <div class="card-title text-xs-left mb-0 pb-1">{{post.node.title}}</div>
                     <div class="card-summary subheading text-xs-left">{{ postSummary[index] }}</div>
 
                     <!-- <v-card-title>
@@ -67,10 +68,12 @@
 
                 </v-flex>
               </v-layout>
-              <div class="gs-pagination">
-                <Pager :info="$page.posts.pageInfo" :showNavigation="false"/>
-              </div>
-              <v-pagination v-model="pagination" :next="pageinationClicked()" prev-icon="mdi-menu-left" next-icon="mdi-menu-right" color="rgb(224, 79, 97)" :length="totalPages" circle></v-pagination>
+              <v-layout row wrap justify-center>
+                <div class="gs-pagination">
+                  <Pager :info="$page.posts.pageInfo" :showNavigation="false"/>
+                </div>
+                <v-pagination v-model="pagination" :next="pageinationClicked()" prev-icon="mdi-menu-left" next-icon="mdi-menu-right" color="rgb(224, 79, 97)" :length="totalPages" circle></v-pagination>
+              </v-layout>
             </v-container>
           </v-flex>
         </v-layout>
@@ -82,7 +85,7 @@
 
 <page-query>
 query Posts ($page: Int) {
-  posts: allPost (perPage: 2, page: $page) @paginate {
+  posts: allPost (perPage: 4, page: $page) @paginate {
     totalCount
     pageInfo {
       totalPages
@@ -182,7 +185,6 @@ export default {
 <style>
 
   .meta {
-    font-size: 12px;
     color: #ee76ad;
     text-align: left;
   }

@@ -1,52 +1,43 @@
 <template>
   <v-app>
-    <section v-if="pageLoad">
-      <v-flex class="left-flex" xs12 md6>
-        <v-img :src="`http://uploads.webflow.com/56c57a495f4a7cf431e728a0/56c57a495f4a7cf431e728be_Photo-11.jpg`" :lazy-src="`http://uploads.webflow.com/56c57a495f4a7cf431e728a0/56c57a495f4a7cf431e728be_Photo-11.jpg`" aspect-ratio="1" class="grey lighten-2 fill-height" height="100%">
-          <div class="left-div-overlay">
-            <v-layout align-center justify-center row fill-height>
-              <v-flex d-block ma-auto px-5 xs12>
-                
-                <v-avatar :tile="false" :size="100" color="grey lighten-4 mb-3">
-                  <img class="img-border" src="http://uploads.webflow.com/56c57a495f4a7cf431e728a0/56d6beafbe84aafb6ca028c1_Akira.jpg" alt="avatar">
-                </v-avatar>
-                <h1 class="display-3">Hello.</h1>
-                <h2 class="headline px-4">My name is Akira Lee and I write about my life, travels and music.</h2>
-              </v-flex>
-            </v-layout>
-          </div>
-        </v-img>
-      </v-flex>
-      <v-flex class="right-flex" fill-height offset-xs6 xs12 md6>
-        <slot></slot>
-      </v-flex>
 
-      <!-- <v-footer height="auto">
-        <v-card class="flex" flat tile>
-          <v-card-actions class="grey darken-3 justify-center">
-            <v-layout row wrap align-center>
-              <v-flex xs12>
-                <div class="white--text ml-3 justify-center">
-                  Made with
-                  <v-icon class="red--text">fas fa-heart</v-icon>by
-                  <a class="white--text" href="https://vuetifyjs.com" target="_blank">Vuetify</a>
-                  and
-                  <a class="white--text" href="https://github.com/vwxyzjn">Nikhil Bhagath</a>
-                </div>
-              </v-flex>
-            </v-layout>
-
-            <v-spacer></v-spacer>
-
-            <v-btn v-for="icon in icons" :key="icon" class="mx-3" dark icon>
-              <v-icon size="24px">{{ icon }}</v-icon>
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-footer> -->
+    <!-- <div class="Top">Top Content</div> -->
+    <section class="Container" v-if="pageLoad">
+      <!-- <v-container class="fill-width" pa-0 ma-0 grid-list-xs> -->
+        <v-layout fill-height pa-0 mb-0 row wrap>     
+          <v-flex class="Left fill-height" xs12 md6>
+            <v-img :src="landingPhoto" :lazy-src="landingPhoto" aspect-ratio="1" class="grey lighten-2 fill-height" height="100%">
+              <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
+                <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
+              </v-layout>
+              <div class="left-div-overlay">
+                <v-layout align-end justify-center row fill-height>
+                  <v-flex d-block mb-4 px-5 xs12>
+                    
+                    <v-responsive transition>
+                      <v-avatar :tile="false" :size="150" color="grey lighten-4 mb-3">
+                        <v-img class="img-border" :src="avatarPhoto" :lazy-src="avatarPhoto" alt="avatar">
+                          <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
+                            <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
+                          </v-layout>
+                        </v-img>
+                      </v-avatar>
+                    </v-responsive>
+                    <h1 class="hello">Hello.</h1>
+                    <h2 class="hello-description">My name is Nikhil Bhagath नाम तो सुना ही होगा and I write about my life, travels and youtube.</h2>
+                  </v-flex>
+                </v-layout>
+              </div>
+            </v-img>
+          </v-flex>
+          <v-flex class="Right fill-height" xs12 md6>
+            <slot></slot>
+          </v-flex>
+        </v-layout>
+      <!-- </v-container> -->
     </section>
-
-    <section v-else>
+    
+    <section class="loader" v-else>
       <v-layout row wrap>
         <div class="loader-box">
           <div class="loader">
@@ -62,7 +53,7 @@
           </ul>
         </div>
       </v-layout>
-    </section>
+    </section> 
   </v-app>
 </template>
 
@@ -84,7 +75,9 @@ export default {
     return {
       title: "Your Logo",
       icons: ["fab fa-facebook", "fab fa-twitter", "fab fa-instagram"],
-      pageLoad: false
+      pageLoad: false,
+      landingPhoto: require('../../static/images/B612_20190321_211742_314.jpg'),
+      avatarPhoto: require('../../static/images/avatar-circle.png')
     };
   },
   mounted() {
@@ -97,39 +90,66 @@ export default {
 @import url('https://fonts.googleapis.com/css?family=Arvo|Playfair+Display|Work+Sans');
 body,
 html {
-  /* display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  width: 100%;
-  height: 100%; */
+  /* padding: 0;
+  margin: 0; */
   background: #f5f4f4;
   font-size: 13px;
   font-family: 'Arvo', monospace!important;
 }
 
-.full-width {
-  max-width: none!important;
-  padding: 0!important;
-  margin: 0;
+* {
+    box-sizing: border-box;
+}
+body {
+    overflow-x: hidden;
 }
 
-.right-flex {
-  background: #ffff;
-  float: right;
-
+.fill-width {
+  max-width: initial!important;
 }
 
-.left-flex {
-    position: fixed;
-    width: 50%;
-    height: 100%;
-    float: left;
+.Top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: darkgreen;
+    font-size: 3rem;
+    position: relative;
+    z-index: 10;
+    height: 100px;
+}
+
+.Container {
+    display: flex;
     overflow: hidden;
+    height: 100vh;
+    position: relative;
+    width: 100%;
+    backface-visibility: hidden;
+    will-change: overflow;
+}
+
+.Left,
+.Right {
+    overflow: auto;
+    background: #fff;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+}
+.Left::-webkit-scrollbar,
+.Right::-webkit-scrollbar {
+    display: none;
+}
+.Left {
+    height: 100%;
+}
+
+.Right {
+    height: auto;
 }
 
 .img-border {
-  border: 7px solid #3f3f3f;
+  border: 3px solid rgb(224, 79, 97);
   border-radius: 100%;
 }
 
@@ -147,7 +167,16 @@ html {
     color: #fff;
 }
 
-@media (max-width: 600px) {
+.hello {
+  font-size: 56px;
+  font-family: 'Work Sans', serif;
+}
+.hello-description {
+  font-size: 24px;
+  font-family: 'Work Sans', serif;
+}
+
+/* @media (max-width: 600px) {
   .nav > .nav-links {
     position: absolute;
     display: block;
@@ -170,9 +199,9 @@ html {
     height: calc(100vh - 50px);
     overflow-y: auto;
   }
-}
+} */
 
-body {
+.loader {
   text-align: center;
   background-color: #545454;
 }

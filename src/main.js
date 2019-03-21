@@ -7,6 +7,7 @@ export default function (Vue) {
   Vue.use(Vuetify, {
     iconfont: 'md'
   })
+  Vue.use(require('vue-moment'));
   Vue.component('Layout', DefaultLayout)
 
 }
