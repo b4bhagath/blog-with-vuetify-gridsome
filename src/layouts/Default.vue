@@ -1,27 +1,13 @@
 <template>
   <v-app>
     <section v-if="pageLoad">
-      <nav>
-        <v-container grid-list-xs>
-          <v-layout row wrap>
-            <v-flex class="text-xs-center">
-              <a href="/" id="logo" class="display-3">@b<span class="logonumber">4</span>bhagath</a>
-              <div class="nav">
-                <div class="nav-links">
-                  <router-link class="tab" active-class="navIsActive" to="/">Home</router-link>
-                  <router-link class="tab" active-class="navIsActive" to="/about">About</router-link>
-                  <router-link class="tab" active-class="navIsActive" to="/contact">Contact</router-link>
-                  <!-- <a href="/" target="_blank">Home</a>
-                  <a href="#" target="_blank">About</a>
-                  <a href="#" target="_blank">Contact</a>-->
-                </div>
-              </div>
-            </v-flex>
-          </v-layout>
-        </v-container>
-      </nav>
-
-      <slot></slot>
+      <v-flex class="left-flex" xs6>
+        <v-img :src="`http://uploads.webflow.com/56c57a495f4a7cf431e728a0/56c57a495f4a7cf431e728be_Photo-11.jpg`" :lazy-src="`http://uploads.webflow.com/56c57a495f4a7cf431e728a0/56c57a495f4a7cf431e728be_Photo-11.jpg`" aspect-ratio="1" class="grey lighten-2 fill-height" height="100%">
+        <div class="left-div-overlay"></div></v-img>
+      </v-flex>
+      <v-flex class="right-flex" fill-height offset-xs6 xs6>
+        <slot></slot>
+      </v-flex>
 
       <v-footer height="auto">
         <v-card class="flex" flat tile>
@@ -96,59 +82,52 @@ export default {
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css?family=Nunito+Sans|Poppins");
-
-@font-face {
-  font-family: monlyBold;
-  src: url("../../static/fonts/Anders.ttf");
-}
-
-@font-face {
-  font-family: Brokes;
-  src: url("../../static/fonts/Brokes.otf");
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: "Nunito Sans", Helvetica, Arial, sans-serif;
-}
-
-#logo {
-  font-family: monlyBold, arial !important;
-  text-decoration: none;
-  color: inherit;
-}
-.logonumber {
-  font-family: Brokes, serif;
-  color: #e04f62;
-}
-
-.nav {
-  height: 50px;
-  width: 100%;
-  /*   background-color: #4d4d4d; */
+@import url('https://fonts.googleapis.com/css?family=Arvo|Playfair+Display|Work+Sans');
+body,
+html {
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
+  width: 100%;
+  height: 100%; */
+  background: #f5f4f4;
+  font-size: 13px;
+  font-family: 'Arvo', monospace!important;
 }
 
-.nav > .nav-links {
-  display: flex;
-  font-size: 18px;
-  justify-content: center;
+.full-width {
+  max-width: none!important;
+  padding: 0!important;
+  margin: 0;
 }
 
-.nav > .nav-links .tab {
-  display: inline-block;
-  padding: 13px 10px 13px 10px;
-  text-decoration: none;
-  color: #afafaf;
-  justify-content: center;
+.right-flex {
+  background: #ffff;
+  float: right;
+
 }
 
-.nav > .nav-links .tab:hover {
-  color: rgba(0, 0, 0, 1);
+.left-flex {
+    position: fixed;
+    width: 50%;
+    height: 100%;
+    float: left;
+    overflow: hidden;
+}
+
+.left-div-overlay {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    background-image: -webkit-linear-gradient(270deg, hsla(0, 0%, 91%, 0) 25%, #000 95%);
+    background-image: linear-gradient(180deg, hsla(0, 0%, 91%, 0) 25%, #000 95%);
+    color: #fff;
 }
 
 @media (max-width: 600px) {

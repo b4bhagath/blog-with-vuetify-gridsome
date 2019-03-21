@@ -60,6 +60,12 @@ export default {
       author: 'Katherine Kato',
       desc: `Seattle is a seaport city on the west coast of the United States...`
     }
+  },
+  mounted() {
+    this.$emit('getAllPosts', (posts) => {
+      console.log('POst vue event triggered', this.$metaInfo.title)
+      console.log(this.$root.$children, posts)
+    })
   }
 }
 </script>
