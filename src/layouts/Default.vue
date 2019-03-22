@@ -2,7 +2,7 @@
   <v-app>
 
     <!-- <div class="Top">Top Content</div> -->
-    <section class="Container" v-if="false">
+    <section class="Container" v-if="pageLoad">
       <v-container class="fill-width" pa-0 ma-0 grid-list-xs>
         <v-layout fill-height pa-0 mb-0 row wrap>     
           <v-flex class="Left fill-height" xs12 md6>
