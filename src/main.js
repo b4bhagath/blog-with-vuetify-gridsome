@@ -2,7 +2,7 @@ import Vuetify from 'vuetify'
 import DefaultLayout from '~/layouts/Default.vue'
 
 import 'vuetify/dist/vuetify.min.css'
-import '@mdi/font/css/materialdesignicons.css'
+import 'material-design-icons-iconfont/dist/material-design-icons.css'
 export default function (Vue) {
   Vue.use(Vuetify, {
     iconfont: 'md'

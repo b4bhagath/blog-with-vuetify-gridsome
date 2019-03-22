@@ -28,7 +28,7 @@
                 <div class="gs-pagination">
                   <Pager :info="$page.posts.pageInfo" :showNavigation="false"/>
                 </div>
-                <v-pagination v-model="pagination" :next="pageinationClicked()" prev-icon="mdi-menu-left" next-icon="mdi-menu-right" color="rgb(224, 79, 97)" :length="totalPages" circle></v-pagination>
+                <v-pagination v-model="pagination" :next="pageinationClicked()" color="rgb(224, 79, 97)" :length="totalPages" circle></v-pagination>
               </v-layout>
             </v-container>
           </v-flex>
