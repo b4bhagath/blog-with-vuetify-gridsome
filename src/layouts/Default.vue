@@ -2,8 +2,8 @@
   <v-app>
 
     <!-- <div class="Top">Top Content</div> -->
-    <section class="Container" v-if="pageLoad">
-      <!-- <v-container class="fill-width" pa-0 ma-0 grid-list-xs> -->
+    <section class="Container" v-if="false">
+      <v-container class="fill-width" pa-0 ma-0 grid-list-xs>
         <v-layout fill-height pa-0 mb-0 row wrap>     
           <v-flex class="Left fill-height" xs12 md6>
             <v-img :src="landingPhoto" :lazy-src="landingPhoto" aspect-ratio="1" class="grey lighten-2 fill-height" height="100%">
@@ -11,10 +11,10 @@
                 <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
               </v-layout>
               <div class="left-div-overlay">
-                <v-layout align-end justify-center row fill-height>
+                <v-layout align-end justify-center text-md-left text-xs-center row fill-height>
                   <v-flex d-block mb-4 px-5 xs12>
                     <v-responsive transition>
-                      <v-avatar :tile="false" :size="150" color="grey lighten-4 mb-3">
+                      <v-avatar :tile="false" :size="116" color="grey lighten-4 mb-3">
                         <v-img class="img-border" :src="avatarPhoto" :lazy-src="avatarPhoto" alt="avatar">
                           <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
                             <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
@@ -33,10 +33,10 @@
             <slot></slot>
           </v-flex>
         </v-layout>
-      <!-- </v-container> -->
+      </v-container>
     </section>
     
-    <section class="loader" v-else>
+    <section   v-else>
       <v-layout row wrap>
         <div class="loader-box">
           <div class="loader">
@@ -175,32 +175,7 @@ body {
   font-family: 'Work Sans', serif;
 }
 
-/* @media (max-width: 600px) {
-  .nav > .nav-links {
-    position: absolute;
-    display: block;
-    width: 100%;
-    background-color: #333;
-    height: 0px;
-    transition: all 0.3s ease-in;
-    overflow-y: hidden;
-    top: 50px;
-    left: 0px;
-  }
-  .nav > .nav-links > a {
-    display: block;
-    width: 100%;
-  }
-  .nav > #nav-check:not(:checked) + .nav-links {
-    height: 0px;
-  }
-  .nav > #nav-check:checked + .nav-links {
-    height: calc(100vh - 50px);
-    overflow-y: auto;
-  }
-} */
-
-.loader {
+.body {
   text-align: center;
   background-color: #545454;
 }
@@ -235,7 +210,7 @@ body {
   height: 30px;
   line-height: 30px;
   padding: 0px;
-  font-family: "Nunito Sans", Helvetica, Arial, sans-serif;
+  font-family: 'Work Sans', serif;
   color: #fff;
   font-size: 20px;
   width: 200px;
@@ -1167,6 +1142,59 @@ body {
   100% {
     transform: translate(0px, 15px);
     opacity: 0;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 959px) {
+  .Left {
+    height: 55%!important;
+  }
+  
+}
+
+@media (min-width: 0) and (max-width: 959px) {
+  .Container {
+    overflow: unset;
+    display: inline-block;
+  }
+
+  .right-posts {
+    margin: 0!important;
+  }
+  .hello {
+    font-size: 32px;
+    font-family: 'Work Sans', serif;
+  }
+  .hello-description {
+    font-size: 15px;
+    font-family: 'Work Sans', serif;
+  }
+
+  .Left .v-avatar {
+    width: 80px;
+    height: 80px;
+  }
+
+  /* .Left,
+  .Right {
+      overflow: auto;
+      background: #fff;
+      -webkit-overflow-scrolling: touch;
+      -ms-overflow-style: none;
+  }
+  .Left::-webkit-scrollbar,
+  .Right::-webkit-scrollbar {
+      display: none;
+  }
+  .Left {
+      height: 100%;
+  }
+
+  .Right {
+      height: auto;
+  } */
+  .Left {
+    height: 55%!important;
   }
 }
 </style>
