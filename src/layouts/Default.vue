@@ -1174,6 +1174,14 @@ body {
     width: 80px;
     height: 80px;
   }
+  
+  .card-post {
+    margin: 24px!important;
+  }
+  .card-post blockquote {
+    font-size: 14px!important;
+    line-height: 23px!important;
+  }
 
   /* .Left,
   .Right {

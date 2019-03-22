@@ -4,8 +4,8 @@
       <section>
         <v-container pa-0 grid-list-xs fill-height>
           <v-layout column>
-            <v-flex style="padding: 50px;"></v-flex>
-            <v-flex class="card-post mx-5">
+            <v-flex pa-5></v-flex>
+            <v-flex class="card-post">
               <v-flex class="text-xs-center">
                 <h1 v-html="$page.post.title"></h1>
               </v-flex>
@@ -73,7 +73,7 @@ export default {
 
 <style>
   .card-post {
-    margin: 0 auto;
+    margin: 0 48px;
   }
 
   .card-post h1 {
