@@ -13,7 +13,6 @@
               <div class="left-div-overlay">
                 <v-layout align-end justify-center row fill-height>
                   <v-flex d-block mb-4 px-5 xs12>
-                    
                     <v-responsive transition>
                       <v-avatar :tile="false" :size="150" color="grey lighten-4 mb-3">
                         <v-img class="img-border" :src="avatarPhoto" :lazy-src="avatarPhoto" alt="avatar">

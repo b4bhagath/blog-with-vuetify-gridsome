@@ -5,67 +5,23 @@
       <section>
         <v-layout column class="my-5">
           <v-flex xs12>
-            <v-container grid-list-xl>
+            <v-container fluid grid-list-xl align-content-start>
               <v-layout row wrap mb-5>
-                <v-flex v-for="(post, index) in posts" :key="index" @click="onClick(post)" v-on:get-all-posts="posts" xs6>
-                  <v-card class="post-card" xs12 md6 flat>
-                    <v-responsive transition>
-                      <v-img contain :lazy-src="image[index%2]" class="card-image white--text" :src="image[index%2]">
-                        <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
-                          <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
-                        </v-layout>
-                      </v-img>
-                    </v-responsive>
-                    <div class="meta body-2 py-3">{{ post.node.date | moment("MMMM Do, YYYY")}}</div>
-                    <div class="card-title text-xs-left mb-0 pb-1">{{post.node.title}}</div>
-                    <div class="card-summary subheading text-xs-left">{{ postSummary[index] }}</div>
-
-                    <!-- <v-card-title>
-                      <v-flex>
-                        <div class="avatar-section py-3">
-                          <v-avatar slot="activator" size="36px" ma-2>
-                            <img :src=returnAvatar() alt="Avatar">
-                          </v-avatar>
-                          <div>
-                            <v-flex py-0 class="caption">John Leider</v-flex>
-                            <v-flex py-0 d-inline-flex class="caption">
-                              <span class="pdr-10">{{ dateOfPost[index] }}</span>
-                              <li></li>
-                              <span>{{post.node.timeToRead}} min</span>
-                            </v-flex>
-                          </div>
-                          <v-spacer></v-spacer>
-                          <v-icon small>fas fa-ellipsis-v</v-icon>
-                        </div>
-                        <div class="title-section">
-                          <div>
-                          </div>
-                        </div>
-                      </v-flex>
-                    </v-card-title> -->
-                    <!-- <v-flex px-4><v-divider></v-divider></v-flex>
-                    <v-flex pa-4>
-                      <div class="card-footer">
-                        <div class="caption">0 views</div>
-                        <div class="caption ml-3">Write a comment</div>
-                        <v-spacer></v-spacer>
-                        <v-icon small color="red">far fa-heart</v-icon>
-                      </div>
-                    </v-flex> -->
-                  </v-card>
-
-                  <!-- <v-card flat>
-                    <v-img :src="`https://picsum.photos/500/300?image=${index * 5 + 10}`" :lazy-src="`https://picsum.photos/500/300?image=${index * 5 + 10}`" aspect-ratio="1" class="grey lighten-2 fill-height" height="100%">
-                      <div class="fill-height bottom-gradient post-overlay"></div>
-                    </v-img>
-                    <v-card-title class="px-0">
-                      <div>
-                        <div class="meta">{{ post.node.date | moment("MMMM Do, YYYY")}}</div>
-                        <h3 class="post-title">{{ post.node.title }}</h3>
-                      </div>
-                    </v-card-title>
-                  </v-card> -->
-
+                <v-flex xs6 v-for="(post, index) in posts" :key="index">
+                  <v-flex v-for="(p, i) in post" :key="i" @click="onClick(p)" v-on:get-all-posts="p" xs12>
+                    <v-card class="post-card" xs12 md6 flat>
+                      <v-responsive transition>
+                        <v-img contain :lazy-src="image[index%2]" class="card-image white--text" :src="image[index%2]">
+                          <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
+                            <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
+                          </v-layout>
+                        </v-img>
+                      </v-responsive>
+                      <div class="meta body-2 py-3">{{ p.node.date | moment("MMMM Do, YYYY")}}</div>
+                      <div class="card-title text-xs-left mb-0 pb-1">{{p.node.title}}</div>
+                      <div class="card-summary subheading text-xs-left">{{ p.node.headings[0].value }}</div>
+                    </v-card>
+                  </v-flex>
                 </v-flex>
               </v-layout>
               <v-layout row wrap justify-center>
@@ -124,47 +80,45 @@ export default {
     return {
       imgUrl: require('@/favicon.png'),
       image: ['https://colorlib.com/preview/theme/libro/images/image_1.jpg', 'https://colorlib.com/preview/theme/libro/images/image_5.jpg'],
-      dateOfPost: [],
-      postSummary: [],
-      pagination: 1
+      pagination: 1,
+      // posts: [[], []]
     }
   },
   components: {
     Pager
   },
   computed: {
-    posts () {
-      return this.$page.posts.edges
+    posts() {
+      let posts = [[], []]
+      this.$page.posts.edges.forEach((val, index) => {
+        if(index%2) {
+          posts[1].push(val)
+        } else {
+          posts[0].push(val)
+        }
+      })
+      return posts
     },
     totalCount () {
       return this.$page.posts.totalCount
-    },
-    postAddedOn() {
-      this.$page.posts.edges.map(node => {
-        // console.log(node.data)
-      })
-      // moment(this.$page.posts.edges.node.date).toNow()
     },
     totalPages() {
       return this.$page.posts.pageInfo.totalPages
     }
   },
   mounted() {
-    this.dateOfPost = this.$page.posts.edges.map(x => {
-        // console.log(x.node.date)
-        this.postSummary.push(x.node.headings[0].value)
-        return moment(x.node.date).toNow(true) + ' ago '
-    })
-    // console.log(this.dateOfPost, this.postSummary)
+    this.getPosts()
   },
   methods: {
     pageinationClicked() {
       console.log('pageCicked', this.pagination, typeof this.pagination)
       if(this.pagination) {
 
+        // this.getPosts()
         if(this.pagination === 1) this.$router.push({ path: "/"})
         else this.$router.push({ path: "/" + this.pagination})
       }
+      // this.getPosts()
     },
     onClick (post) {
       this.$router.push({ path: post.node.path })
@@ -177,6 +131,15 @@ export default {
     },
     getCardParah() {
       return faker.lorem.paragraph()
+    },
+    getPosts() {
+      this.$page.posts.edges.forEach((val, index) => {
+        if(index%2) {
+          this.posts[1].push(val)
+        } else {
+          this.posts[0].push(val)
+        }
+      })
     }
   }
 }
@@ -202,7 +165,7 @@ export default {
     color: #ee76ad;
     transition: .3s all ease;
   }
-
+/* 
   .post-overlay {
     width: 100%;
     height: 100%;
@@ -218,7 +181,7 @@ export default {
 
   .bottom-gradient {
     background-image: linear-gradient(to top, rgba(0, 0, 0, 0.4) 0%, transparent 72px);
-  }
+  } */
 
   .card-title {
     font-size: 20px;
@@ -279,10 +242,10 @@ export default {
     font-weight: 400;
   } */
 
-  .nav-links > .navIsActive {
-    /* color: #e04f62!important; */
+  /* .nav-links > .navIsActive {
+    color: #e04f62!important;
     text-decoration: underline;
-  }
+  } */
 
   /* .title-section .subheading {
     font-weight: 300;
