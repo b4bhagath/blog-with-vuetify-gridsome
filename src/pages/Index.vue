@@ -5,9 +5,10 @@
       <section>
         <v-layout column class="right-posts">
           <v-flex xs12>
-            <v-container fluid grid-list-xl align-content-start>
+            <div style="height: 80px;"></div>
+            <v-container fluid grid-list-xl pt-0 align-content-start>
               <v-layout row wrap mb-5>
-                <v-flex xs12 md6 v-for="(post, index) in posts" :key="index">
+                <v-flex xs12 md6 pt-0 v-for="(post, index) in posts" :key="index">
                   <v-flex xs12 mb-4 v-for="(p, i) in post" :key="i" @click="onClick(p)" v-on:get-all-posts="p" >
                     <v-card class="post-card" xs12 flat>
                       <v-responsive transition>

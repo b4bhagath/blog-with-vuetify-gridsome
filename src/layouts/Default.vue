@@ -1,20 +1,91 @@
 <template>
   <v-app>
+    <v-navigation-drawer right v-model="navDrawer" absolute temporary>
+      <v-flex>
+        <v-card flat :height="120">
+          <v-img class="fill-height" src="https://cdn.vuetifyjs.com/images/cards/desert.jpg" aspect-ratio="2.75">
+          </v-img>
+        </v-card>
+        <v-flex>
+          <v-flex class="profile-header" xs12 justify-center>
+            <v-avatar :tile="false" :size="130">
+              <img :src="avatarPhoto" alt="avatar">
+            </v-avatar>
+          </v-flex>
+          <v-flex style="padding: 95px 35px 25px;">
+            <h1 class="text-xs-center headline">Nikhil Bhagath</h1>
+            <v-flex  pt-3 d-flex justify-center>
+              <div class="profile-location text-xs-center">
+                <v-flex class="pr-1 d-inline"><v-icon color="rgb(224, 79, 97)">place</v-icon></v-flex>
+                <v-flex class="loc pr-3 caption">Bengaluru, IN</v-flex>
+              </div>
+            </v-flex>
+            <v-flex>
+              <p class="body-2 pt-3 text-xs-center">My name is Nikhil Bhagath and I write about my life, travels and youtube.</p>
+            </v-flex>
+          </v-flex>
+          <v-flex>
+            
+            <v-list subheader>
+              <v-flex  v-for="item in navItems" :key="item.title">
+                <v-divider></v-divider>
+                <v-list-tile>  
+                  <v-list-tile-content>
+                    <v-list-tile-title class="text-xs-center" v-html="item.title"></v-list-tile-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+              </v-flex>
+              <v-divider></v-divider>
 
+            </v-list>
+          </v-flex>
+        </v-flex>
+        
+      </v-flex>
+
+      <!-- <v-list class="pt-0" dense>
+        <v-divider></v-divider>
+
+        <v-list-tile v-for="item in items" :key="item.title">
+          <v-list-tile-action>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-tile-action>
+
+          <v-list-tile-content>
+            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list> -->
+    </v-navigation-drawer>
     <!-- <div class="Top">Top Content</div> -->
     <section class="Container" v-if="pageLoad">
       <v-container class="fill-width" pa-0 ma-0 grid-list-xs>
-        <v-layout fill-height pa-0 mb-0 row wrap>     
+        <v-layout fill-height pa-0 mb-0 row wrap>
+          <v-flex class="Top" justify-space-between xs12>
+            <div class="logo ml-4 pl-4 white--text">
+              Logo
+            </div>
+            <div>
+              <v-btn flat fab color="rgb(224, 79, 97)" class="navmenu" @click.stop="navDrawer = !navDrawer">
+                <v-icon>menu</v-icon>
+              </v-btn>
+            </div>
+          </v-flex>
           <v-flex class="Left fill-height" xs12 md6>
             <v-img :src="landingPhoto" :lazy-src="landingPhoto" aspect-ratio="1" class="grey lighten-2 fill-height" height="100%">
               <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
                 <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
               </v-layout>
               <div class="left-div-overlay">
-                <v-layout align-end justify-center text-md-left text-xs-center row fill-height>
+                <v-flex class="close-icon" xs1 offset-xs11>
+                  <v-btn flat fab dark>
+                    <v-icon>close</v-icon>
+                  </v-btn>
+                </v-flex>
+                <v-layout align-end justify-center row fill-height>
                   <v-flex d-block mb-4 px-5 xs12>
                     <v-responsive transition>
-                      <v-avatar :tile="false" :size="116" color="grey lighten-4 mb-3">
+                      <v-avatar :tile="false" :size="150" color="grey lighten-4 mb-3">
                         <v-img class="img-border" :src="avatarPhoto" :lazy-src="avatarPhoto" alt="avatar">
                           <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
                             <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
@@ -76,7 +147,13 @@ export default {
       icons: ["fab fa-facebook", "fab fa-twitter", "fab fa-instagram"],
       pageLoad: false,
       landingPhoto: require('../../static/images/B612_20190321_211742_314.jpg'),
-      avatarPhoto: require('../../static/images/avatar-circle.png')
+      avatarPhoto: require('../../static/images/avatar-circle.png'),
+      navDrawer: true,
+      navItems: [
+          { title: 'Homepage' },
+          { title: 'About Us' },
+          { title: 'Contact Us' }
+        ]
     };
   },
   mounted() {
@@ -110,12 +187,15 @@ body {
 .Top {
     display: flex;
     align-items: center;
-    justify-content: center;
-    background-color: darkgreen;
     font-size: 3rem;
-    position: relative;
-    z-index: 10;
-    height: 100px;
+    position: absolute;
+    z-index: 4;
+    height: 120px;
+    width: 100%;
+}
+
+.logo {
+  cursor: pointer;
 }
 
 .Container {
@@ -126,6 +206,24 @@ body {
     width: 100%;
     backface-visibility: hidden;
     will-change: overflow;
+}
+
+.profile-header {
+  display: flex;
+  position: absolute;
+  top: 51px;
+  width: 100%;
+  margin: auto;
+}
+
+.profile-location > .loc{
+  display: inline-block;
+  position: relative;
+  top: -4px;
+}
+
+.profile-location {
+  position: relative;
 }
 
 .Left,
@@ -139,6 +237,7 @@ body {
 .Right::-webkit-scrollbar {
     display: none;
 }
+
 .Left {
     height: 100%;
 }
@@ -164,6 +263,15 @@ body {
     background-image: -webkit-linear-gradient(270deg, hsla(0, 0%, 91%, 0) 25%, #000 95%);
     background-image: linear-gradient(180deg, hsla(0, 0%, 91%, 0) 25%, #000 95%);
     color: #fff;
+}
+
+.close-icon {
+  position: relative;
+  top: 30px;
+  right: 45px;
+  opacity: 0.75;
+  position: absolute;
+  
 }
 
 .hello {
@@ -1182,7 +1290,27 @@ body {
     font-size: 14px!important;
     line-height: 23px!important;
   }
+  .v-avatar {
+    height: 80px!important;
+    width: 80px!important;
+  }
 
+  .close-icon {
+    display: none;
+  }
+
+  .navmenu {
+    color: white;
+    caret-color: white;
+  }
+
+  .Top {
+    height: 80px;
+  }
+
+  .Top > .logo {
+    margin: 0!important;
+  }
   /* .Left,
   .Right {
       overflow: auto;
