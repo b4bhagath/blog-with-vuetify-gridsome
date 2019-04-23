@@ -2,7 +2,7 @@
   <layout>
     <v-content>
 
-      <section>
+      <section id="top">
         <v-layout column class="right-posts">
           <v-flex xs12>
             <div style="height: 80px;"></div>
@@ -111,13 +111,30 @@ export default {
     this.getPosts()
   },
   methods: {
+    scrollToTop () {
+      // console.log('scrolling now')
+      let container = document.getElementById('top')
+      // // not working
+      // container.scrollTop = 0
+      
+      // Below is working
+     let event = new CustomEvent('scroll', {})
+     container.pageYOffset = 0
+     setTimeout(() => {
+       container.scrollTop = 0
+     })
+     container.dispatchEvent(event)
+    },
     pageinationClicked() {
       console.log('pageCicked', this.pagination, typeof this.pagination)
       if(this.pagination) {
 
         // this.getPosts()
         if(this.pagination === 1) this.$router.push({ path: "/"})
-        else this.$router.push({ path: "/" + this.pagination})
+        else {
+            this.scrollToTop()
+            this.$router.push({ path: "/" + this.pagination})
+          }
       }
       // this.getPosts()
     },

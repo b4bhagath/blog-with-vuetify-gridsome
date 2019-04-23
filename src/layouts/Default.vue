@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-navigation-drawer right v-model="navDrawer" absolute temporary>
+    <v-navigation-drawer right v-model="navDrawer" temporary style="position:fixed; overflow-y:scroll;">
       <v-flex>
         <v-card flat :height="120">
           <v-img class="fill-height" src="https://cdn.vuetifyjs.com/images/cards/desert.jpg" aspect-ratio="2.75">
@@ -42,34 +42,30 @@
         </v-flex>
         
       </v-flex>
-
-      <!-- <v-list class="pt-0" dense>
-        <v-divider></v-divider>
-
-        <v-list-tile v-for="item in items" :key="item.title">
-          <v-list-tile-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-tile-action>
-
-          <v-list-tile-content>
-            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list> -->
     </v-navigation-drawer>
-    <!-- <div class="Top">Top Content</div> -->
+    
     <section class="Container" v-if="pageLoad">
       <v-container class="fill-width" pa-0 ma-0 grid-list-xs>
         <v-layout fill-height pa-0 mb-0 row wrap>
           <v-flex class="Top" justify-space-between xs12>
-            <div class="logo ml-4 pl-4 white--text">
-              Logo
-            </div>
-            <div>
-              <v-btn flat fab color="rgb(224, 79, 97)" class="navmenu" @click.stop="navDrawer = !navDrawer">
-                <v-icon>menu</v-icon>
-              </v-btn>
-            </div>
+            <v-layout row wrap fill-height pa-4>
+              <v-flex xs4 class="fill-height">
+                <div class="logo white--text">
+                  Logo
+                </div>
+              </v-flex>
+              <!-- <v-flex md4 class="fill-height" offset-md1 hidden-sm-and-down>
+                <v-btn v-if="closeIcon" flat fab dark>
+                  <v-icon @mouseenter="mouseHover()">close</v-icon>
+                </v-btn>
+                <span @mouseleave="mouseLeave" class="reading-mode mr-3" v-else>Reading Mode</span>
+              </v-flex> -->
+              <v-flex xs1 offset-xs7 md1 class="fill-height" offset-md7>
+                <v-btn flat fab color="rgb(224, 79, 97)" class="navmenu" @click.stop="navDrawer = !navDrawer">
+                  <v-icon>menu</v-icon>
+                </v-btn>
+              </v-flex>
+            </v-layout>
           </v-flex>
           <v-flex class="Left fill-height" xs12 md6>
             <v-img :src="landingPhoto" :lazy-src="landingPhoto" aspect-ratio="1" class="grey lighten-2 fill-height" height="100%">
@@ -77,11 +73,6 @@
                 <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
               </v-layout>
               <div class="left-div-overlay">
-                <v-flex class="close-icon" xs1 offset-xs11>
-                  <v-btn flat fab dark>
-                    <v-icon>close</v-icon>
-                  </v-btn>
-                </v-flex>
                 <v-layout align-end justify-center row fill-height>
                   <v-flex d-block mb-4 px-5 xs12>
                     <v-responsive transition>
@@ -139,6 +130,7 @@ query {
 </static-query>
 
 <script>
+var delay = require('lodash/delay');
 export default {
   name: "app",
   data() {
@@ -148,16 +140,32 @@ export default {
       pageLoad: false,
       landingPhoto: require('../../static/images/B612_20190321_211742_314.jpg'),
       avatarPhoto: require('../../static/images/avatar-circle.png'),
-      navDrawer: true,
+      navDrawer: false,
       navItems: [
           { title: 'Homepage' },
           { title: 'About Us' },
           { title: 'Contact Us' }
-        ]
+        ],
+      closeIcon: true
     };
   },
   mounted() {
     if (this.$root.$children[0].posts) console.log('pageLoaded'); this.pageLoad = true;
+  },
+  methods: {
+    mouseHover() {
+      let self = this
+      console.log('Hover')
+      delay(function(text) {
+        self.closeIcon = false
+        }, 100, 'deferred');
+    },
+    mouseLeave() {
+      let self = this
+      delay(function(text) {
+        self.closeIcon = true
+        }, 100,  'deferred');
+    }
   }
 };
 </script>
@@ -185,8 +193,8 @@ body {
 }
 
 .Top {
-    display: flex;
-    align-items: center;
+    /* display: flex; */
+    /* align-items: center; */
     font-size: 3rem;
     position: absolute;
     z-index: 4;
@@ -266,12 +274,16 @@ body {
 }
 
 .close-icon {
-  position: relative;
-  top: 30px;
-  right: 45px;
+  /* top: 30px; */
+  /* right: 45px; */
   opacity: 0.75;
-  position: absolute;
+  /* position: absolute; */
   
+}
+
+.reading-mode {
+  font-size: 14px;
+  cursor: pointer;
 }
 
 .hello {
@@ -1300,8 +1312,8 @@ body {
   }
 
   .navmenu {
-    color: white;
-    caret-color: white;
+    color: white!important;
+    caret-color: white!important;
   }
 
   .Top {
