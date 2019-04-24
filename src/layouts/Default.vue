@@ -21,7 +21,7 @@
               </div>
             </v-flex>
             <v-flex>
-              <p class="body-2 pt-3 text-xs-center">My name is Nikhil Bhagath and I write about my life, travels and youtube.</p>
+              <p class="body-2 pt-3 text-xs-center"> 'My name is Nikhil Bhagath and I write about my life, travels and youtube. </p>
             </v-flex>
           </v-flex>
           <v-flex>
@@ -54,12 +54,6 @@
                   Logo
                 </div>
               </v-flex>
-              <!-- <v-flex md4 class="fill-height" offset-md1 hidden-sm-and-down>
-                <v-btn v-if="closeIcon" flat fab dark>
-                  <v-icon @mouseenter="mouseHover()">close</v-icon>
-                </v-btn>
-                <span @mouseleave="mouseLeave" class="reading-mode mr-3" v-else>Reading Mode</span>
-              </v-flex> -->
               <v-flex xs1 offset-xs7 md1 class="fill-height" offset-md7>
                 <v-btn flat fab color="rgb(224, 79, 97)" class="navmenu" @click.stop="navDrawer = !navDrawer">
                   <v-icon>menu</v-icon>
@@ -74,7 +68,7 @@
               </v-layout>
               <div class="left-div-overlay">
                 <v-layout align-end justify-center row fill-height>
-                  <v-flex d-block mb-4 px-5 xs12>
+                  <v-flex d-block mb-4 px-5 xs12 v-if="homePageData">
                     <v-responsive transition>
                       <v-avatar :tile="false" :size="150" color="grey lighten-4 mb-3">
                         <v-img class="img-border" :src="avatarPhoto" :lazy-src="avatarPhoto" alt="avatar">
@@ -86,6 +80,10 @@
                     </v-responsive>
                     <h1 class="hello">Hello.</h1>
                     <h2 class="hello-description">My name is Nikhil Bhagath नाम तो सुना ही होगा and I write about my life, travels and youtube.</h2>
+                  </v-flex>
+
+                  <v-flex d-block mb-4 pa-5 xs12 v-else>
+                    <h2 class="hello-description">{{ postTitle }}</h2>
                   </v-flex>
                 </v-layout>
               </div>
@@ -125,12 +123,19 @@ query {
   },
   allPost {
     totalCount
+    edges {
+      node {
+        slug
+        title
+      }
+    }
   }
 }
 </static-query>
 
 <script>
-var delay = require('lodash/delay');
+var forIn = require('lodash/forIn');
+
 export default {
   name: "app",
   data() {
@@ -140,31 +145,42 @@ export default {
       pageLoad: false,
       landingPhoto: require('../../static/images/B612_20190321_211742_314.jpg'),
       avatarPhoto: require('../../static/images/avatar-circle.png'),
+      homePageData: true,
       navDrawer: false,
       navItems: [
           { title: 'Homepage' },
           { title: 'About Us' },
           { title: 'Contact Us' }
         ],
-      closeIcon: true
+      closeIcon: true,
+      postTitle: ''
     };
   },
   mounted() {
+    let scope = this
     if (this.$root.$children[0].posts) console.log('pageLoaded'); this.pageLoad = true;
+    this.checkForRoute()
   },
   methods: {
-    mouseHover() {
-      let self = this
-      console.log('Hover')
-      delay(function(text) {
-        self.closeIcon = false
-        }, 100, 'deferred');
-    },
-    mouseLeave() {
-      let self = this
-      delay(function(text) {
-        self.closeIcon = true
-        }, 100,  'deferred');
+    checkForRoute() {
+      let scope = this
+      console.log('Checking for route', this.$static)
+      let post = this.$route.params.slug
+      let postsTitle = this.$static.allPost.edges
+      if(this.$route.path === '/') {
+
+        this.homePageData = true
+        this.landingPhoto = require('../../static/images/B612_20190321_211742_314.jpg')
+      } else {
+
+        this.homePageData = false
+        this.landingPhoto = '../assets/img/' + post + '.jpg'
+        console.log(postsTitle)
+        forIn(postsTitle, (data) => {
+          console.log('pickLodash',data.node.slug)
+          if (data.node.slug === post) scope.postTitle = data.node.title
+        })
+      }
     }
   }
 };

@@ -12,7 +12,7 @@
                   <v-flex xs12 mb-4 v-for="(p, i) in post" :key="i" @click="onClick(p)" v-on:get-all-posts="p" >
                     <v-card class="post-card" xs12 flat>
                       <v-responsive transition>
-                        <v-img contain :lazy-src="image[index%2]" class="card-image white--text" :src="image[index%2]">
+                        <v-img contain :lazy-src="postImg[index][i]" class="card-image white--text" :src="postImg[index][i]">
                           <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
                             <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
                           </v-layout>
@@ -99,6 +99,18 @@ export default {
         }
       })
       return posts
+    },
+    postImg() {
+      let images = [[], []]
+      this.$page.posts.edges.forEach((val, index) => {
+        if(index%2) {
+          images[1].push(require('../../static/images/' + val.node.slug + '/' + val.node.slug + '.jpg'))
+          // console.log(require('../../static/images/' + val.node.slug + '/' + val.node.slug + '.jpg'))
+        } else {
+          images[0].push(require('../../static/images/' + val.node.slug + '/' + val.node.slug + '.jpg'))
+        }
+      })
+      return images
     },
     totalCount () {
       return this.$page.posts.totalCount
