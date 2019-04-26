@@ -47,7 +47,7 @@
     <section class="Container" v-if="pageLoad">
       <v-container class="fill-width" pa-0 ma-0 grid-list-xs>
         <v-layout fill-height pa-0 mb-0 row wrap>
-          <v-flex class="Top" justify-space-between xs12>
+          <v-flex class="Top" ref="top" justify-space-between xs12>
             <v-layout row wrap fill-height pa-4>
               <v-flex xs4 class="fill-height">
                 <div class="logo white--text">
@@ -134,6 +134,7 @@ query {
 </static-query>
 
 <script>
+import { setTimeout } from 'timers';
 var forIn = require('lodash/forIn');
 
 export default {
@@ -165,6 +166,7 @@ export default {
     checkForRoute() {
       let scope = this
       console.log('Checking for route', this.$static)
+      scope.scrollToTop()
       let post = this.$route.params.slug
       let postsTitle = this.$static.allPost.edges
       if(this.$route.path === '/') {
@@ -174,13 +176,25 @@ export default {
       } else {
 
         this.homePageData = false
-        this.landingPhoto = require('../assets/img/' + post + '.jpg')
+        this.landingPhoto = require('../../static/images/' + post + '/' + post + '.jpg')
         console.log(postsTitle)
         forIn(postsTitle, (data) => {
           console.log('pickLodash',data.node.slug)
           if (data.node.slug === post) scope.postTitle = data.node.title
         })
+
+        
+        
       }
+    },
+    scrollToTop() {
+      console.log('scrollToTop function called')
+      setTimeout(() => {
+
+        console.log('Scrolling to the top', this.$refs.top)
+        this.$refs.top.scrollIntoView({behavior: 'smooth'});
+      }, 100)
+      // document.querySelector('#top').scrollIntoView({behavior: 'smooth'});
     }
   }
 };
