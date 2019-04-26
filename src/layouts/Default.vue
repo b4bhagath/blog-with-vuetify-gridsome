@@ -174,7 +174,7 @@ export default {
       } else {
 
         this.homePageData = false
-        this.landingPhoto = './assets/img/' + post + '.jpg'
+        this.landingPhoto = require('../assets/img/' + post + '.jpg')
         console.log(postsTitle)
         forIn(postsTitle, (data) => {
           console.log('pickLodash',data.node.slug)
